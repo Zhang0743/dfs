@@ -1,0 +1,97 @@
+﻿syntax = "proto3";
+
+package dfs;
+option go_package = "./;dfspb";
+
+service Tracker {
+    rpc RegisterNode(RegisterRequest) returns (RegisterResponse);
+    rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+    rpc GetUploadNodes(GetUploadNodesRequest) returns (GetUploadNodesResponse);
+    rpc GetNode(GetNodeRequest) returns (GetNodeResponse);
+    rpc ListNodes(ListNodesRequest) returns (ListNodesResponse);
+}
+
+message NodeInfo {
+    string node_id = 1;
+    string address = 2;
+    string status = 3;
+    int64 available_space = 4;
+}
+
+message RegisterRequest {
+    string node_id = 1;
+    string address = 2;
+    int64 available_space = 3;
+}
+
+message RegisterResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message HeartbeatRequest {
+    string node_id = 1;
+    int64 available_space = 2;
+    int32 chunk_count = 3;
+}
+
+message HeartbeatResponse {
+    bool success = 1;
+}
+
+message GetUploadNodesRequest {
+    string file_id = 1;
+    int32 chunk_count = 2;
+}
+
+message GetUploadNodesResponse {
+    repeated NodeInfo nodes = 1;
+}
+
+message GetNodeRequest {
+    string node_id = 1;
+}
+
+message GetNodeResponse {
+    NodeInfo node = 1;
+}
+
+message ListNodesRequest {
+}
+
+message ListNodesResponse {
+    repeated NodeInfo nodes = 1;
+}
+
+service Storage {
+    rpc StoreChunk(stream ChunkData) returns (StoreResponse);
+}
+
+message ChunkData {
+    string chunk_id = 1;
+    bytes data = 2;
+    int32 index = 3;
+}
+
+message StoreResponse {
+    bool success = 1;
+    string checksum = 2;
+}
+
+message FileMetadata {
+    string file_id = 1;
+    string filename = 2;
+    int64 size = 3;
+    int32 chunk_count = 4;
+    repeated ChunkInfo chunks = 5;
+    string upload_time = 6;
+    string owner = 7;
+}
+
+message ChunkInfo {
+    string chunk_id = 1;
+    string node_id = 2;
+    int32 index = 3;
+    int64 size = 4;
+    string checksum = 5;
+}
