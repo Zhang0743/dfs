@@ -1,9 +1,8 @@
 package main
 
 import (
-    "fmt"
-
     "flag"
+    "fmt"
     "log"
     "net"
     "os"
@@ -18,7 +17,6 @@ import (
 )
 
 func main() {
-    // 命令行参数
     configPath := flag.String("config", "configs/tracker.yaml", "配置文件路径")
     flag.Parse()
 
@@ -47,22 +45,23 @@ func main() {
     trackerServer := tracker.NewServer()
     pb.RegisterTrackerServer(s, trackerServer)
 
-    log.Printf("?? Tracker server started on %s", addr)
-    log.Printf("?? Config: heartbeat_interval=%ds, timeout=%ds, chunk_size=%dMB", 
+    log.Printf("🚀 Tracker server started on %s", addr)
+    log.Printf("📋 Config: heartbeat_interval=%ds, timeout=%ds, chunk_size=%dMB",
         cfg.Heartbeat.Interval, cfg.Heartbeat.Timeout, cfg.Chunk.Size/(1024*1024))
 
     // 优雅关闭
     quit := make(chan os.Signal, 1)
     signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-    
+
     go func() {
         if err := s.Serve(lis); err != nil {
             log.Fatalf("failed to serve: %v", err)
         }
     }()
-    
+
     <-quit
-    log.Println("?? Shutting down gracefully...")
+    log.Println("🛑 Shutting down gracefully...")
+    trackerServer.Stop()
     s.GracefulStop()
-    log.Println("? Server stopped")
+    log.Println("✅ Server stopped")
 }

@@ -27,6 +27,7 @@ type NodeInfo struct {
 	Address        string                 `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 	Status         string                 `protobuf:"bytes,3,opt,name=status,proto3" json:"status,omitempty"`
 	AvailableSpace int64                  `protobuf:"varint,4,opt,name=available_space,json=availableSpace,proto3" json:"available_space,omitempty"`
+	LastHeartbeat  int64                  `protobuf:"varint,5,opt,name=last_heartbeat,json=lastHeartbeat,proto3" json:"last_heartbeat,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -85,6 +86,13 @@ func (x *NodeInfo) GetStatus() string {
 func (x *NodeInfo) GetAvailableSpace() int64 {
 	if x != nil {
 		return x.AvailableSpace
+	}
+	return 0
+}
+
+func (x *NodeInfo) GetLastHeartbeat() int64 {
+	if x != nil {
+		return x.LastHeartbeat
 	}
 	return 0
 }
@@ -905,12 +913,13 @@ var File_dfs_proto protoreflect.FileDescriptor
 
 const file_dfs_proto_rawDesc = "" +
 	"\n" +
-	"\tdfs.proto\x12\x03dfs\"~\n" +
+	"\tdfs.proto\x12\x03dfs\"\xa5\x01\n" +
 	"\bNodeInfo\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\x12\x16\n" +
 	"\x06status\x18\x03 \x01(\tR\x06status\x12'\n" +
-	"\x0favailable_space\x18\x04 \x01(\x03R\x0eavailableSpace\"m\n" +
+	"\x0favailable_space\x18\x04 \x01(\x03R\x0eavailableSpace\x12%\n" +
+	"\x0elast_heartbeat\x18\x05 \x01(\x03R\rlastHeartbeat\"m\n" +
 	"\x0fRegisterRequest\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\x12'\n" +

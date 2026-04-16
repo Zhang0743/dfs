@@ -21,7 +21,6 @@ import (
 )
 
 func main() {
-    // 命令行参数（优先级高于配置文件）
     nodeId := flag.String("node-id", "", "storage node id (required)")
     port := flag.Int("port", 0, "storage service port")
     dataDir := flag.String("data", "", "data directory")
@@ -30,10 +29,9 @@ func main() {
     flag.Parse()
 
     if *nodeId == "" {
-        log.Fatal("❌ -node-id is required")
+        log.Fatal("-node-id is required")
     }
 
-    // 加载配置文件
     cfg, err := common.LoadStorageConfig(*configPath)
     if err != nil {
         log.Printf("警告: 无法加载配置文件，使用默认配置: %v", err)
@@ -43,7 +41,6 @@ func main() {
         cfg.Heartbeat.Interval = 5
     }
 
-    // 命令行参数覆盖配置文件
     finalPort := cfg.Server.Port
     if *port != 0 {
         finalPort = *port
@@ -57,14 +54,23 @@ func main() {
         finalTrackerAddr = *trackerAddr
     }
 
-    // 1. 启动 Storage gRPC 服务
-    go startStorageServer(*nodeId, finalPort, finalDataDir)
+    ctx, cancel := context.WithCancel(context.Background())
+    defer cancel()
 
-    // 2. 向 Tracker 注册并发送心跳
-    registerAndHeartbeat(*nodeId, finalPort, finalTrackerAddr, finalDataDir, cfg.Heartbeat.Interval)
+    go startStorageServer(ctx, *nodeId, finalPort, finalDataDir)
+    go registerAndHeartbeat(ctx, *nodeId, finalPort, finalTrackerAddr, finalDataDir, cfg.Heartbeat.Interval)
+
+    quit := make(chan os.Signal, 1)
+    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+    <-quit
+
+    log.Println("🛑 Shutting down gracefully...")
+    cancel()
+    time.Sleep(2 * time.Second)
+    log.Println("✅ Storage node stopped")
 }
 
-func startStorageServer(nodeId string, port int, dataDir string) {
+func startStorageServer(ctx context.Context, nodeId string, port int, dataDir string) {
     lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
     if err != nil {
         log.Fatalf("failed to listen: %v", err)
@@ -77,72 +83,80 @@ func startStorageServer(nodeId string, port int, dataDir string) {
     log.Printf("🚀 Storage node %s started on :%d", nodeId, port)
     log.Printf("📁 Data directory: %s", dataDir)
 
-    // 优雅关闭
-    quit := make(chan os.Signal, 1)
-    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-    
     go func() {
-        if err := s.Serve(lis); err != nil {
-            log.Fatalf("failed to serve: %v", err)
-        }
+        <-ctx.Done()
+        log.Println("🛑 Shutting down gRPC server...")
+        s.GracefulStop()
     }()
-    
-    <-quit
-    log.Println("🛑 Shutting down storage server...")
-    s.GracefulStop()
+
+    if err := s.Serve(lis); err != nil {
+        log.Fatalf("failed to serve: %v", err)
+    }
 }
 
-func registerAndHeartbeat(nodeId string, port int, trackerAddr, dataDir string, heartbeatInterval int) {
-    // 等待 tracker 启动
+func registerAndHeartbeat(ctx context.Context, nodeId string, port int, trackerAddr, dataDir string, heartbeatInterval int) {
     time.Sleep(2 * time.Second)
-    
-    // 连接 Tracker
-    conn, err := grpc.Dial(trackerAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+    // 使用带超时的 DialContext
+    dialCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+    conn, err := grpc.DialContext(dialCtx, trackerAddr,
+        grpc.WithTransportCredentials(insecure.NewCredentials()),
+        grpc.WithBlock())
+    cancel()
+
     if err != nil {
-        log.Fatalf("failed to connect tracker: %v", err)
+        log.Printf("Failed to connect tracker: %v", err)
+        return
     }
     defer conn.Close()
 
     client := pb.NewTrackerClient(conn)
-    ctx := context.Background()
 
-    // 首次注册
-    resp, err := client.RegisterNode(ctx, &pb.RegisterRequest{
+    // 首次注册（带超时）
+    regCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+    resp, err := client.RegisterNode(regCtx, &pb.RegisterRequest{
         NodeId:         nodeId,
         Address:        fmt.Sprintf("localhost:%d", port),
         AvailableSpace: getAvailableSpace(dataDir),
     })
-    if err != nil {
-        log.Fatalf("register failed: %v", err)
+    cancel()
+
+    if err != nil || !resp.Success {
+        log.Printf("Register failed: %v", err)
+        return
     }
     log.Printf("✅ Registered to tracker: %v", resp.Success)
 
-    // 定期心跳
+    // 心跳循环
     ticker := time.NewTicker(time.Duration(heartbeatInterval) * time.Second)
     defer ticker.Stop()
 
-    for range ticker.C {
-        heartbeat, err := client.Heartbeat(ctx, &pb.HeartbeatRequest{
-            NodeId:         nodeId,
-            AvailableSpace: getAvailableSpace(dataDir),
-            ChunkCount:     getChunkCount(dataDir),
-        })
-        if err != nil {
-            log.Printf("❌ Heartbeat failed: %v", err)
-            continue
-        }
-        if heartbeat.Success {
-            log.Printf("💓 Heartbeat sent - node: %s, chunks: %d", nodeId, getChunkCount(dataDir))
+    for {
+        select {
+        case <-ctx.Done():
+            log.Println("💔 Heartbeat stopped")
+            return
+        case <-ticker.C:
+            hbCtx, cancel := context.WithTimeout(ctx, 3*time.Second)
+            heartbeat, err := client.Heartbeat(hbCtx, &pb.HeartbeatRequest{
+                NodeId:         nodeId,
+                AvailableSpace: getAvailableSpace(dataDir),
+                ChunkCount:     getChunkCount(dataDir),
+            })
+            cancel()
+
+            if err != nil {
+                log.Printf("❌ Heartbeat failed: %v", err)
+                continue
+            }
+            if heartbeat.Success {
+                log.Printf("💓 Heartbeat sent - node: %s, chunks: %d", nodeId, getChunkCount(dataDir))
+            }
         }
     }
 }
 
-func getLocalAddress() string {
-    return "localhost"
-}
-
 func getAvailableSpace(path string) int64 {
-    // 简化实现，返回1GB
     return 1 * 1024 * 1024 * 1024
 }
 

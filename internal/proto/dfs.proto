@@ -16,6 +16,7 @@ message NodeInfo {
     string address = 2;
     string status = 3;
     int64 available_space = 4;
+    int64 last_heartbeat = 5;  
 }
 
 message RegisterRequest {
