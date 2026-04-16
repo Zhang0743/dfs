@@ -1,0 +1,10 @@
+﻿server:
+  host: "0.0.0.0"
+  port: 50050
+
+heartbeat:
+  interval: 5
+  timeout: 15
+
+chunk:
+  size: 67108864  # 64MB

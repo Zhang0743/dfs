@@ -1,0 +1,10 @@
+﻿server:
+  port: 50051
+  tracker_address: "localhost:50050"
+
+storage:
+  data_dir: "./data/node1"
+  max_disk_usage: 0.8
+
+heartbeat:
+  interval: 5
