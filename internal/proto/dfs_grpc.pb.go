@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v7.34.0--rc2
-// source: internal/proto/dfs.proto
+// source: dfs.proto
 
 package dfspb
 
@@ -269,7 +269,7 @@ var Tracker_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/proto/dfs.proto",
+	Metadata: "dfs.proto",
 }
 
 const (
@@ -403,5 +403,5 @@ var Storage_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "internal/proto/dfs.proto",
+	Metadata: "dfs.proto",
 }

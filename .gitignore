@@ -1,0 +1,26 @@
+﻿# Binaries
+bin/*.exe
+bin/*.exe~
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test data
+data/
+*.txt
+*.downloaded.txt
+cluster-test.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Proto backups
+*.bak
+*.bak2

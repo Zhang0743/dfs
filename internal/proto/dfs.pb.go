@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v7.34.0--rc2
-// source: internal/proto/dfs.proto
+// source: dfs.proto
 
 package dfspb
 
@@ -33,7 +33,7 @@ type NodeInfo struct {
 
 func (x *NodeInfo) Reset() {
 	*x = NodeInfo{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[0]
+	mi := &file_dfs_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *NodeInfo) String() string {
 func (*NodeInfo) ProtoMessage() {}
 
 func (x *NodeInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[0]
+	mi := &file_dfs_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *NodeInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeInfo.ProtoReflect.Descriptor instead.
 func (*NodeInfo) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{0}
+	return file_dfs_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *NodeInfo) GetNodeId() string {
@@ -100,7 +100,7 @@ type RegisterRequest struct {
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[1]
+	mi := &file_dfs_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -112,7 +112,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[1]
+	mi := &file_dfs_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -125,7 +125,7 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{1}
+	return file_dfs_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *RegisterRequest) GetNodeId() string {
@@ -159,7 +159,7 @@ type RegisterResponse struct {
 
 func (x *RegisterResponse) Reset() {
 	*x = RegisterResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[2]
+	mi := &file_dfs_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -171,7 +171,7 @@ func (x *RegisterResponse) String() string {
 func (*RegisterResponse) ProtoMessage() {}
 
 func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[2]
+	mi := &file_dfs_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -184,7 +184,7 @@ func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{2}
+	return file_dfs_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RegisterResponse) GetSuccess() bool {
@@ -212,7 +212,7 @@ type HeartbeatRequest struct {
 
 func (x *HeartbeatRequest) Reset() {
 	*x = HeartbeatRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[3]
+	mi := &file_dfs_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -224,7 +224,7 @@ func (x *HeartbeatRequest) String() string {
 func (*HeartbeatRequest) ProtoMessage() {}
 
 func (x *HeartbeatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[3]
+	mi := &file_dfs_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -237,7 +237,7 @@ func (x *HeartbeatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeartbeatRequest.ProtoReflect.Descriptor instead.
 func (*HeartbeatRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{3}
+	return file_dfs_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *HeartbeatRequest) GetNodeId() string {
@@ -270,7 +270,7 @@ type HeartbeatResponse struct {
 
 func (x *HeartbeatResponse) Reset() {
 	*x = HeartbeatResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[4]
+	mi := &file_dfs_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -282,7 +282,7 @@ func (x *HeartbeatResponse) String() string {
 func (*HeartbeatResponse) ProtoMessage() {}
 
 func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[4]
+	mi := &file_dfs_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -295,7 +295,7 @@ func (x *HeartbeatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HeartbeatResponse.ProtoReflect.Descriptor instead.
 func (*HeartbeatResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{4}
+	return file_dfs_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *HeartbeatResponse) GetSuccess() bool {
@@ -315,7 +315,7 @@ type GetUploadNodesRequest struct {
 
 func (x *GetUploadNodesRequest) Reset() {
 	*x = GetUploadNodesRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[5]
+	mi := &file_dfs_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -327,7 +327,7 @@ func (x *GetUploadNodesRequest) String() string {
 func (*GetUploadNodesRequest) ProtoMessage() {}
 
 func (x *GetUploadNodesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[5]
+	mi := &file_dfs_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -340,7 +340,7 @@ func (x *GetUploadNodesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUploadNodesRequest.ProtoReflect.Descriptor instead.
 func (*GetUploadNodesRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{5}
+	return file_dfs_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetUploadNodesRequest) GetFileId() string {
@@ -366,7 +366,7 @@ type GetUploadNodesResponse struct {
 
 func (x *GetUploadNodesResponse) Reset() {
 	*x = GetUploadNodesResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[6]
+	mi := &file_dfs_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -378,7 +378,7 @@ func (x *GetUploadNodesResponse) String() string {
 func (*GetUploadNodesResponse) ProtoMessage() {}
 
 func (x *GetUploadNodesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[6]
+	mi := &file_dfs_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -391,7 +391,7 @@ func (x *GetUploadNodesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUploadNodesResponse.ProtoReflect.Descriptor instead.
 func (*GetUploadNodesResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{6}
+	return file_dfs_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetUploadNodesResponse) GetNodes() []*NodeInfo {
@@ -410,7 +410,7 @@ type GetNodeRequest struct {
 
 func (x *GetNodeRequest) Reset() {
 	*x = GetNodeRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[7]
+	mi := &file_dfs_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -422,7 +422,7 @@ func (x *GetNodeRequest) String() string {
 func (*GetNodeRequest) ProtoMessage() {}
 
 func (x *GetNodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[7]
+	mi := &file_dfs_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -435,7 +435,7 @@ func (x *GetNodeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNodeRequest.ProtoReflect.Descriptor instead.
 func (*GetNodeRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{7}
+	return file_dfs_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetNodeRequest) GetNodeId() string {
@@ -454,7 +454,7 @@ type GetNodeResponse struct {
 
 func (x *GetNodeResponse) Reset() {
 	*x = GetNodeResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[8]
+	mi := &file_dfs_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -466,7 +466,7 @@ func (x *GetNodeResponse) String() string {
 func (*GetNodeResponse) ProtoMessage() {}
 
 func (x *GetNodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[8]
+	mi := &file_dfs_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -479,7 +479,7 @@ func (x *GetNodeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetNodeResponse.ProtoReflect.Descriptor instead.
 func (*GetNodeResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{8}
+	return file_dfs_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetNodeResponse) GetNode() *NodeInfo {
@@ -497,7 +497,7 @@ type ListNodesRequest struct {
 
 func (x *ListNodesRequest) Reset() {
 	*x = ListNodesRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[9]
+	mi := &file_dfs_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -509,7 +509,7 @@ func (x *ListNodesRequest) String() string {
 func (*ListNodesRequest) ProtoMessage() {}
 
 func (x *ListNodesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[9]
+	mi := &file_dfs_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -522,7 +522,7 @@ func (x *ListNodesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListNodesRequest.ProtoReflect.Descriptor instead.
 func (*ListNodesRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{9}
+	return file_dfs_proto_rawDescGZIP(), []int{9}
 }
 
 type ListNodesResponse struct {
@@ -534,7 +534,7 @@ type ListNodesResponse struct {
 
 func (x *ListNodesResponse) Reset() {
 	*x = ListNodesResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[10]
+	mi := &file_dfs_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -546,7 +546,7 @@ func (x *ListNodesResponse) String() string {
 func (*ListNodesResponse) ProtoMessage() {}
 
 func (x *ListNodesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[10]
+	mi := &file_dfs_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -559,7 +559,7 @@ func (x *ListNodesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListNodesResponse.ProtoReflect.Descriptor instead.
 func (*ListNodesResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{10}
+	return file_dfs_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ListNodesResponse) GetNodes() []*NodeInfo {
@@ -579,7 +579,7 @@ type ChunkRequest struct {
 
 func (x *ChunkRequest) Reset() {
 	*x = ChunkRequest{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[11]
+	mi := &file_dfs_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -591,7 +591,7 @@ func (x *ChunkRequest) String() string {
 func (*ChunkRequest) ProtoMessage() {}
 
 func (x *ChunkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[11]
+	mi := &file_dfs_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -604,7 +604,7 @@ func (x *ChunkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChunkRequest.ProtoReflect.Descriptor instead.
 func (*ChunkRequest) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{11}
+	return file_dfs_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *ChunkRequest) GetChunkId() string {
@@ -632,7 +632,7 @@ type ChunkData struct {
 
 func (x *ChunkData) Reset() {
 	*x = ChunkData{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[12]
+	mi := &file_dfs_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -644,7 +644,7 @@ func (x *ChunkData) String() string {
 func (*ChunkData) ProtoMessage() {}
 
 func (x *ChunkData) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[12]
+	mi := &file_dfs_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -657,7 +657,7 @@ func (x *ChunkData) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChunkData.ProtoReflect.Descriptor instead.
 func (*ChunkData) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{12}
+	return file_dfs_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ChunkData) GetChunkId() string {
@@ -691,7 +691,7 @@ type StoreResponse struct {
 
 func (x *StoreResponse) Reset() {
 	*x = StoreResponse{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[13]
+	mi := &file_dfs_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -703,7 +703,7 @@ func (x *StoreResponse) String() string {
 func (*StoreResponse) ProtoMessage() {}
 
 func (x *StoreResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[13]
+	mi := &file_dfs_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -716,7 +716,7 @@ func (x *StoreResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StoreResponse.ProtoReflect.Descriptor instead.
 func (*StoreResponse) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{13}
+	return file_dfs_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *StoreResponse) GetSuccess() bool {
@@ -748,7 +748,7 @@ type FileMetadata struct {
 
 func (x *FileMetadata) Reset() {
 	*x = FileMetadata{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[14]
+	mi := &file_dfs_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -760,7 +760,7 @@ func (x *FileMetadata) String() string {
 func (*FileMetadata) ProtoMessage() {}
 
 func (x *FileMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[14]
+	mi := &file_dfs_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -773,7 +773,7 @@ func (x *FileMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileMetadata.ProtoReflect.Descriptor instead.
 func (*FileMetadata) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{14}
+	return file_dfs_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FileMetadata) GetFileId() string {
@@ -838,7 +838,7 @@ type ChunkInfo struct {
 
 func (x *ChunkInfo) Reset() {
 	*x = ChunkInfo{}
-	mi := &file_internal_proto_dfs_proto_msgTypes[15]
+	mi := &file_dfs_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -850,7 +850,7 @@ func (x *ChunkInfo) String() string {
 func (*ChunkInfo) ProtoMessage() {}
 
 func (x *ChunkInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_proto_dfs_proto_msgTypes[15]
+	mi := &file_dfs_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -863,7 +863,7 @@ func (x *ChunkInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChunkInfo.ProtoReflect.Descriptor instead.
 func (*ChunkInfo) Descriptor() ([]byte, []int) {
-	return file_internal_proto_dfs_proto_rawDescGZIP(), []int{15}
+	return file_dfs_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ChunkInfo) GetChunkId() string {
@@ -901,11 +901,11 @@ func (x *ChunkInfo) GetChecksum() string {
 	return ""
 }
 
-var File_internal_proto_dfs_proto protoreflect.FileDescriptor
+var File_dfs_proto protoreflect.FileDescriptor
 
-const file_internal_proto_dfs_proto_rawDesc = "" +
+const file_dfs_proto_rawDesc = "" +
 	"\n" +
-	"\x18internal/proto/dfs.proto\x12\x03dfs\"~\n" +
+	"\tdfs.proto\x12\x03dfs\"~\n" +
 	"\bNodeInfo\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\x12\x16\n" +
@@ -977,19 +977,19 @@ const file_internal_proto_dfs_proto_rawDesc = "" +
 	"Z\b./;dfspbb\x06proto3"
 
 var (
-	file_internal_proto_dfs_proto_rawDescOnce sync.Once
-	file_internal_proto_dfs_proto_rawDescData []byte
+	file_dfs_proto_rawDescOnce sync.Once
+	file_dfs_proto_rawDescData []byte
 )
 
-func file_internal_proto_dfs_proto_rawDescGZIP() []byte {
-	file_internal_proto_dfs_proto_rawDescOnce.Do(func() {
-		file_internal_proto_dfs_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_internal_proto_dfs_proto_rawDesc), len(file_internal_proto_dfs_proto_rawDesc)))
+func file_dfs_proto_rawDescGZIP() []byte {
+	file_dfs_proto_rawDescOnce.Do(func() {
+		file_dfs_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_dfs_proto_rawDesc), len(file_dfs_proto_rawDesc)))
 	})
-	return file_internal_proto_dfs_proto_rawDescData
+	return file_dfs_proto_rawDescData
 }
 
-var file_internal_proto_dfs_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
-var file_internal_proto_dfs_proto_goTypes = []any{
+var file_dfs_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_dfs_proto_goTypes = []any{
 	(*NodeInfo)(nil),               // 0: dfs.NodeInfo
 	(*RegisterRequest)(nil),        // 1: dfs.RegisterRequest
 	(*RegisterResponse)(nil),       // 2: dfs.RegisterResponse
@@ -1007,7 +1007,7 @@ var file_internal_proto_dfs_proto_goTypes = []any{
 	(*FileMetadata)(nil),           // 14: dfs.FileMetadata
 	(*ChunkInfo)(nil),              // 15: dfs.ChunkInfo
 }
-var file_internal_proto_dfs_proto_depIdxs = []int32{
+var file_dfs_proto_depIdxs = []int32{
 	0,  // 0: dfs.GetUploadNodesResponse.nodes:type_name -> dfs.NodeInfo
 	0,  // 1: dfs.GetNodeResponse.node:type_name -> dfs.NodeInfo
 	0,  // 2: dfs.ListNodesResponse.nodes:type_name -> dfs.NodeInfo
@@ -1033,26 +1033,26 @@ var file_internal_proto_dfs_proto_depIdxs = []int32{
 	0,  // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_internal_proto_dfs_proto_init() }
-func file_internal_proto_dfs_proto_init() {
-	if File_internal_proto_dfs_proto != nil {
+func init() { file_dfs_proto_init() }
+func file_dfs_proto_init() {
+	if File_dfs_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_proto_dfs_proto_rawDesc), len(file_internal_proto_dfs_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dfs_proto_rawDesc), len(file_dfs_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
-		GoTypes:           file_internal_proto_dfs_proto_goTypes,
-		DependencyIndexes: file_internal_proto_dfs_proto_depIdxs,
-		MessageInfos:      file_internal_proto_dfs_proto_msgTypes,
+		GoTypes:           file_dfs_proto_goTypes,
+		DependencyIndexes: file_dfs_proto_depIdxs,
+		MessageInfos:      file_dfs_proto_msgTypes,
 	}.Build()
-	File_internal_proto_dfs_proto = out.File
-	file_internal_proto_dfs_proto_goTypes = nil
-	file_internal_proto_dfs_proto_depIdxs = nil
+	File_dfs_proto = out.File
+	file_dfs_proto_goTypes = nil
+	file_dfs_proto_depIdxs = nil
 }
