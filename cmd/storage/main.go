@@ -76,7 +76,10 @@ func startStorageServer(ctx context.Context, nodeId string, port int, dataDir st
         log.Fatalf("failed to listen: %v", err)
     }
 
-    s := grpc.NewServer()
+    // ✅ 设置最大接收消息大小为 64MB
+    s := grpc.NewServer(
+        grpc.MaxRecvMsgSize(64*1024*1024),
+    )
     storageServer := storage.NewServer(nodeId, dataDir)
     pb.RegisterStorageServer(s, storageServer)
 
