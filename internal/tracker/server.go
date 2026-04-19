@@ -2,9 +2,10 @@
 
 import (
     "context"
+    "fmt"      // 添加这一行
     "sync"
     "time"
-
+    
     pb "dfs-mini/internal/proto"
     "dfs-mini/pkg/consistent"
 )
@@ -107,30 +108,53 @@ func (s *Server) Heartbeat(ctx context.Context, req *pb.HeartbeatRequest) (*pb.H
 }
 
 // GetUploadNodes 获取上传节点列表
+// GetUploadNodes 获取上传节点列表（支持多副本和调度策略）
 func (s *Server) GetUploadNodes(ctx context.Context, req *pb.GetUploadNodesRequest) (*pb.GetUploadNodesResponse, error) {
     s.mu.RLock()
     defer s.mu.RUnlock()
+
+    replicaCount := int(req.ReplicaCount)
+    if replicaCount <= 0 {
+        replicaCount = 2 // 默认2副本
+    }
 
     var nodes []*pb.NodeInfo
 
     // 为每个分片分配存储节点
     for i := 0; i < int(req.ChunkCount); i++ {
-        // 生成分片key: fileId_chunk_index
-        key := req.FileId + "_chunk_" + string(rune(i))
-        nodeId := s.consistent.GetNode(key)
-
-        if node, ok := s.nodes[nodeId]; ok {
-            nodes = append(nodes, node)
-        } else {
-            // 节点不存在时的 fallback：取任意可用节点
-            for _, n := range s.nodes {
-                nodes = append(nodes, n)
-                break
+        key := fmt.Sprintf("%s_chunk_%d", req.FileId, i)
+        
+        // 获取多个不重复的节点（副本）
+        replicaNodes := s.consistent.GetReplicas(key, replicaCount)
+        
+        for _, nodeId := range replicaNodes {
+            if node, ok := s.nodes[nodeId]; ok && node.Status == "active" {
+                nodes = append(nodes, node)
+            } else {
+                // 节点不可用时的fallback：选可用空间最大的健康节点
+                fallback := s.selectBestNode()
+                if fallback != nil {
+                    nodes = append(nodes, fallback)
+                }
             }
         }
     }
 
-    return &pb.GetUploadNodesResponse{Nodes: nodes}, nil
+    return &pb.GetUploadNodesResponse{Nodes: nodes, ReplicaCount: int32(replicaCount)}, nil
+}
+
+// selectBestNode 选择可用空间最大的健康节点（调度策略）
+func (s *Server) selectBestNode() *pb.NodeInfo {
+    var bestNode *pb.NodeInfo
+    var maxSpace int64 = -1
+    
+    for _, node := range s.nodes {
+        if node.Status == "active" && node.AvailableSpace > maxSpace {
+            maxSpace = node.AvailableSpace
+            bestNode = node
+        }
+    }
+    return bestNode
 }
 
 // GetNode 获取单个节点信息

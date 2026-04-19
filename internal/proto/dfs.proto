@@ -43,10 +43,12 @@ message HeartbeatResponse {
 message GetUploadNodesRequest {
     string file_id = 1;
     int32 chunk_count = 2;
+    int32 replica_count = 3;  // 新增：副本数
 }
 
 message GetUploadNodesResponse {
     repeated NodeInfo nodes = 1;
+    int32 replica_count = 2;  // 新增：实际使用的副本数
 }
 
 message GetNodeRequest {

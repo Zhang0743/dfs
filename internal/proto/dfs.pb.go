@@ -317,6 +317,7 @@ type GetUploadNodesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
 	ChunkCount    int32                  `protobuf:"varint,2,opt,name=chunk_count,json=chunkCount,proto3" json:"chunk_count,omitempty"`
+	ReplicaCount  int32                  `protobuf:"varint,3,opt,name=replica_count,json=replicaCount,proto3" json:"replica_count,omitempty"` // 新增：副本数
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -365,9 +366,17 @@ func (x *GetUploadNodesRequest) GetChunkCount() int32 {
 	return 0
 }
 
+func (x *GetUploadNodesRequest) GetReplicaCount() int32 {
+	if x != nil {
+		return x.ReplicaCount
+	}
+	return 0
+}
+
 type GetUploadNodesResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Nodes         []*NodeInfo            `protobuf:"bytes,1,rep,name=nodes,proto3" json:"nodes,omitempty"`
+	ReplicaCount  int32                  `protobuf:"varint,2,opt,name=replica_count,json=replicaCount,proto3" json:"replica_count,omitempty"` // 新增：实际使用的副本数
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -407,6 +416,13 @@ func (x *GetUploadNodesResponse) GetNodes() []*NodeInfo {
 		return x.Nodes
 	}
 	return nil
+}
+
+func (x *GetUploadNodesResponse) GetReplicaCount() int32 {
+	if x != nil {
+		return x.ReplicaCount
+	}
+	return 0
 }
 
 type GetNodeRequest struct {
@@ -933,13 +949,15 @@ const file_dfs_proto_rawDesc = "" +
 	"\vchunk_count\x18\x03 \x01(\x05R\n" +
 	"chunkCount\"-\n" +
 	"\x11HeartbeatResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\"Q\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"v\n" +
 	"\x15GetUploadNodesRequest\x12\x17\n" +
 	"\afile_id\x18\x01 \x01(\tR\x06fileId\x12\x1f\n" +
 	"\vchunk_count\x18\x02 \x01(\x05R\n" +
-	"chunkCount\"=\n" +
+	"chunkCount\x12#\n" +
+	"\rreplica_count\x18\x03 \x01(\x05R\freplicaCount\"b\n" +
 	"\x16GetUploadNodesResponse\x12#\n" +
-	"\x05nodes\x18\x01 \x03(\v2\r.dfs.NodeInfoR\x05nodes\")\n" +
+	"\x05nodes\x18\x01 \x03(\v2\r.dfs.NodeInfoR\x05nodes\x12#\n" +
+	"\rreplica_count\x18\x02 \x01(\x05R\freplicaCount\")\n" +
 	"\x0eGetNodeRequest\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\"4\n" +
 	"\x0fGetNodeResponse\x12!\n" +
