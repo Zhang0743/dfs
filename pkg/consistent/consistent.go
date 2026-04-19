@@ -11,7 +11,7 @@ import (
 type Consistent struct {
     nodes        map[uint32]string // 虚拟节点哈希 -> 真实节点
     sortedHashes []uint32          // 排序后的哈希环
-    replicas     int              // 虚拟节点倍数
+    replicas     int               // 虚拟节点倍数
     mu           sync.RWMutex
 }
 
@@ -54,12 +54,10 @@ func (c *Consistent) GetNode(key string) string {
     
     hash := crc32.ChecksumIEEE([]byte(key))
     
-    // 二分查找第一个 >= hash 的虚拟节点
     idx := sort.Search(len(c.sortedHashes), func(i int) bool {
         return c.sortedHashes[i] >= hash
     })
     
-    // 如果超出环尾，回到环首
     if idx == len(c.sortedHashes) {
         idx = 0
     }
@@ -78,7 +76,6 @@ func (c *Consistent) RemoveNode(node string) {
         delete(c.nodes, hash)
     }
     
-    // 重新构建排序哈希环
     c.sortedHashes = make([]uint32, 0, len(c.nodes))
     for k := range c.nodes {
         c.sortedHashes = append(c.sortedHashes, k)
@@ -103,4 +100,45 @@ func (c *Consistent) GetNodes() []string {
         nodes = append(nodes, node)
     }
     return nodes
+}
+
+// GetReplicas 获取指定数量的不重复节点（用于副本分配）
+// key: 数据分片的key
+// count: 需要的副本数量
+func (c *Consistent) GetReplicas(key string, count int) []string {
+    c.mu.RLock()
+    defer c.mu.RUnlock()
+
+    if len(c.nodes) == 0 {
+        return []string{}
+    }
+
+    uniqueNodes := make(map[string]bool)
+    for _, node := range c.nodes {
+        uniqueNodes[node] = true
+    }
+
+    availableCount := len(uniqueNodes)
+    if count > availableCount {
+        count = availableCount
+    }
+
+    hash := crc32.ChecksumIEEE([]byte(key))
+    idx := sort.Search(len(c.sortedHashes), func(i int) bool {
+        return c.sortedHashes[i] >= hash
+    })
+
+    result := make([]string, 0, count)
+    seen := make(map[string]bool)
+
+    for i := 0; i < len(c.sortedHashes) && len(result) < count; i++ {
+        currentIdx := (idx + i) % len(c.sortedHashes)
+        node := c.nodes[c.sortedHashes[currentIdx]]
+        if !seen[node] {
+            seen[node] = true
+            result = append(result, node)
+        }
+    }
+
+    return result
 }
